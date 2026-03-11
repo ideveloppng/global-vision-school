@@ -34,7 +34,7 @@ const fadeInUp = {
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
   transition: { duration: 0.6, ease: "easeOut" }
-};
+} as const;
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
