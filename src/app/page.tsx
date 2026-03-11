@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link'; // Added this to fix the "Link is not defined" error
+import Link from 'next/link';
 import { 
   ArrowRight, Star, Play, MessageCircle, 
   BookOpen, Globe, Users, Calendar, 
@@ -28,7 +28,7 @@ const slides = [
   }
 ];
 
-// Animation Variants
+// --- ANIMATION VARIANTS (Fixed with 'as const' for TypeScript) ---
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -96,21 +96,12 @@ export default function Home() {
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center gap-6">
-                  {/* LINKED BUTTONS TO ADMISSIONS */}
                   <Link href="/admissions">
-                    <motion.button 
-                      whileHover={{ scale: 1.05, y: -5 }} 
-                      whileTap={{ scale: 0.95 }} 
-                      className="bg-white text-gvDarkBlue px-12 py-5 rounded-full font-black text-lg flex items-center gap-3 shadow-2xl"
-                    >
+                    <motion.button whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} className="bg-white text-gvDarkBlue px-12 py-5 rounded-full font-black text-lg flex items-center gap-3 shadow-2xl">
                       Get Started <ArrowRight size={22} />
                     </motion.button>
                   </Link>
-                  
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }} 
-                    className="bg-transparent border-2 border-white/50 text-white px-12 py-5 rounded-full font-black text-lg flex items-center gap-3 hover:bg-white/10 transition-all"
-                  >
+                  <motion.button whileHover={{ scale: 1.05 }} className="bg-transparent border-2 border-white/50 text-white px-12 py-5 rounded-full font-black text-lg flex items-center gap-3 hover:bg-white/10 transition-all">
                     <div className="bg-gvYellow p-2 rounded-full"><Play size={18} className="text-gvDarkBlue fill-gvDarkBlue ml-0.5" /></div>
                     Tour Campus
                   </motion.button>
@@ -131,18 +122,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- SECTION 2: QUICK STATS --- */}
+      {/* --- SECTION 2: QUICK STATS (Fixed to prevent TS error) --- */}
       <section className="px-6 md:px-12 py-24 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
           {[
-            { label: "Years Experience", val: "15+", icon: <Calendar />, color: "border-gvYellow" },
-            { label: "Students Enrolled", val: "500+", icon: <Users />, color: "border-green-400" },
-            { label: "Expert Educators", val: "40+", icon: <GraduationCap />, color: "border-blue-400" },
-            { label: "Pass Rate", val: "100%", icon: <Star />, color: "border-gvYellow" },
+            { label: "Years Experience", val: "15+", icon: <Calendar size={26} />, color: "border-gvYellow" },
+            { label: "Students Enrolled", val: "500+", icon: <Users size={26} />, color: "border-green-400" },
+            { label: "Expert Educators", val: "40+", icon: <GraduationCap size={26} />, color: "border-blue-400" },
+            { label: "Pass Rate", val: "100%", icon: <Star size={26} />, color: "border-gvYellow" },
           ].map((stat, i) => (
             <motion.div key={i} {...fadeInUp} whileHover={{ y: -10 }} className={`bg-white p-10 rounded-[3rem] shadow-xl shadow-gray-100 border-b-8 ${stat.color} transition-all duration-300`}>
               <div className="mb-6 bg-gray-50 w-14 h-14 rounded-2xl flex items-center justify-center text-gvDarkBlue shadow-inner">
-                {React.cloneElement(stat.icon as React.ReactElement, { size: 26 })}
+                {stat.icon}
               </div>
               <h3 className="text-4xl font-black text-gvDarkBlue tracking-tight">{stat.val}</h3>
               <p className="text-gray-400 font-bold text-xs mt-2 uppercase tracking-widest">{stat.label}</p>
@@ -238,7 +229,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            {/* LINKED ENROLL BUTTON */}
             <Link href="/admissions">
               <button className="mt-12 bg-gvDarkBlue text-white px-10 py-5 rounded-full font-black uppercase shadow-xl flex items-center gap-3">
                 Enroll Now <ArrowRight size={20} />
